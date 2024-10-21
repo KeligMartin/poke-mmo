@@ -55,13 +55,27 @@ public class Pokemon implements IPokemon {
 	}
 
 	public void attack(Pokemon pokemon) {
-		int previousHp = pokemon.getHp();
-		pokemon.setHp(previousHp - 10);
+		if( this.getHp() > 0) {
+			int damage = 10;
+			if (pokemon.getType() == "Feu" && this.getType() == "Electrique") {
+				damage = damage * 2;
+			}
+			int previousHp = pokemon.getHp();
+			pokemon.setHp(previousHp - damage);
+			// < = 0
+			if (pokemon.getHp() <= 0) {
+				System.out.println(pokemon.getName() + " est KO");
+			}
+		}
 	}
 
 	public void heal() {
-		int previous = getHp();
-		setHp(previous + 10);
+		if (getHp() > 0) {
+			int previous = getHp();
+			setHp(previous + 10);
+		} else {
+			System.out.println(getName() + " est KO il ne peut pas se soigner");
+		}
 	}
 
 	public String toString() {
